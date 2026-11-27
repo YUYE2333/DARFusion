@@ -1,0 +1,83 @@
+{
+  "schema_version": 3,
+  "dataset": "MUUFL_Gulfport",
+  "loader": "mat_hsi_lidar",
+  "default_root": "data/MUUFL",
+  "files": {
+    "hsi": "HSI.mat",
+    "lidar": "LiDAR.mat"
+  },
+  "keys": {
+    "hsi": "HSI",
+    "lidar": "LiDAR"
+  },
+  "label_split": {
+    "file": "splits/muufl_split.mat",
+    "keys": {
+      "train": ["TRLabel", "TR"],
+      "test": ["TSLabel", "TE"],
+      "ground_truth": "gt"
+    },
+    "require_ground_truth": true
+  },
+  "resolution": {
+    "allow_implicit_key_fallback": false
+  },
+  "label_schema": {
+    "require_contiguous": true,
+    "require_all_classes_in_train": true,
+    "require_all_classes_in_test": true
+  },
+  "layouts": {
+    "hsi": "HWB",
+    "lidar": "HWC",
+    "labels": "HW"
+  },
+  "band_selection": {
+    "mode": "all"
+  },
+  "label_values": {
+    "background": 0,
+    "replace": {
+      "-1": 0
+    }
+  },
+  "expected": {
+    "spatial_shape": [
+      325,
+      220
+    ],
+    "num_bands": 64,
+    "lidar_channels": [
+      1,
+      2
+    ],
+    "num_classes": 11
+  },
+  "patch_size": 33,
+  "normalization": {
+    "hsi": "train_percentile_minmax",
+    "hsi_percentile_low": 1.0,
+    "hsi_percentile_high": 99.0,
+    "statistics_source": "train_label_pixels",
+    "hsi_output_range": [
+      0.0,
+      1.0
+    ],
+    "lidar": "train_zscore"
+  },
+  "class_names": [
+    "Trees",
+    "Mostly grass",
+    "Mixed ground surface",
+    "Dirt and sand",
+    "Road",
+    "Water",
+    "Building shadow",
+    "Building",
+    "Sidewalk",
+    "Yellow curb",
+    "Cloth panels"
+  ],
+  "protocol_note": "HSI/LiDAR stay in the dataset root; all label maps come from one fixed split MAT. One or two LiDAR channels are supported."
+}

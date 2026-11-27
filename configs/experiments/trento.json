@@ -1,0 +1,48 @@
+{
+  "project": "DARFusion",
+  "name": "DARFusion Trento",
+  "dataset_config": "../datasets/trento.json",
+  "degradation_config": "../degradations/default.json",
+  "training_config": "../training/default.json",
+  "output_root": "outputs",
+  "active_fold": 0,
+  "held_out_folds": [
+    {
+      "name": "gaussian_holes",
+      "hsi": "gaussian",
+      "lidar": "holes"
+    }
+  ],
+  "seeds": {
+    "split": 2026,
+    "model": 1234,
+    "corruption": 1234
+  },
+  "evaluation": {
+    "single_severity_levels": [
+      1,
+      2,
+      3
+    ],
+    "dual_severity_levels": [
+      1,
+      2,
+      3
+    ],
+    "include_all_known_known_pairs": true,
+    "include_unknown_known": true,
+    "include_known_unknown": true,
+    "include_unknown_unknown": true,
+    "include_misregistration": true,
+    "misregistration_severity_levels": [
+      1,
+      2,
+      3
+    ]
+  },
+  "gates": {
+    "clean_min_oa": 0.92,
+    "dual_uu_target_oa": 0.8359,
+    "dual_uu_stop_floor": 0.8259
+  }
+}

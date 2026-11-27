@@ -1,0 +1,163 @@
+{
+  "schema_version": 2,
+  "protocol_version": "pcrfusion_dual_modal_scene_protocol",
+  "severity_levels": [
+    1,
+    2,
+    3
+  ],
+  "hsi": {
+    "degradations": [
+      "gaussian",
+      "poisson",
+      "stripe",
+      "dead_line",
+      "blur",
+      "downsample"
+    ],
+    "parameters": {
+      "gaussian": {
+        "1": {
+          "sigma": 0.03
+        },
+        "2": {
+          "sigma": 0.07
+        },
+        "3": {
+          "sigma": 0.12
+        }
+      },
+      "poisson": {
+        "1": {
+          "peak": 60.0
+        },
+        "2": {
+          "peak": 30.0
+        },
+        "3": {
+          "peak": 15.0
+        }
+      },
+      "stripe": {
+        "1": {
+          "ratio": 0.05,
+          "amplitude": 0.08
+        },
+        "2": {
+          "ratio": 0.1,
+          "amplitude": 0.14
+        },
+        "3": {
+          "ratio": 0.2,
+          "amplitude": 0.22
+        }
+      },
+      "dead_line": {
+        "1": {
+          "ratio": 0.03
+        },
+        "2": {
+          "ratio": 0.08
+        },
+        "3": {
+          "ratio": 0.15
+        }
+      },
+      "blur": {
+        "1": {
+          "kernel": 3,
+          "sigma": 0.8
+        },
+        "2": {
+          "kernel": 5,
+          "sigma": 1.2
+        },
+        "3": {
+          "kernel": 7,
+          "sigma": 1.8
+        }
+      },
+      "downsample": {
+        "1": {
+          "scale": 0.75
+        },
+        "2": {
+          "scale": 0.5
+        },
+        "3": {
+          "scale": 0.25
+        }
+      }
+    }
+  },
+  "lidar": {
+    "degradations": [
+      "elevation_noise",
+      "holes",
+      "resolution"
+    ],
+    "parameters": {
+      "elevation_noise": {
+        "1": {
+          "sigma": 0.1
+        },
+        "2": {
+          "sigma": 0.25
+        },
+        "3": {
+          "sigma": 0.5
+        }
+      },
+      "holes": {
+        "1": {
+          "ratio": 0.05,
+          "block_size": 3,
+          "fill_value": 0.0
+        },
+        "2": {
+          "ratio": 0.12,
+          "block_size": 5,
+          "fill_value": 0.0
+        },
+        "3": {
+          "ratio": 0.25,
+          "block_size": 7,
+          "fill_value": 0.0
+        }
+      },
+      "resolution": {
+        "1": {
+          "scale": 0.75
+        },
+        "2": {
+          "scale": 0.5
+        },
+        "3": {
+          "scale": 0.25
+        }
+      }
+    }
+  },
+  "cache": {
+    "dirname": ".pcrfusion_dual_corruption_cache",
+    "dtype": "float32"
+  },
+  "cross_modal": {
+    "degradations": [
+      "misregistration"
+    ],
+    "parameters": {
+      "misregistration": {
+        "1": {
+          "max_shift_pixels": 1
+        },
+        "2": {
+          "max_shift_pixels": 2
+        },
+        "3": {
+          "max_shift_pixels": 3
+        }
+      }
+    }
+  }
+}

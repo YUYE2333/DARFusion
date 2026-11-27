@@ -1,0 +1,87 @@
+{
+  "schema_version": 3,
+  "dataset": "Houston2013",
+  "loader": "mat_hsi_lidar",
+  "default_root": "data/Houston",
+  "files": {
+    "hsi": "HSI.mat",
+    "lidar": "LiDAR.mat"
+  },
+  "keys": {
+    "hsi": "HSI",
+    "lidar": "LiDAR"
+  },
+  "label_split": {
+    "file": "splits/houston_split.mat",
+    "keys": {
+      "train": [
+        "TRLabel",
+        "TR"
+      ],
+      "test": [
+        "TSLabel",
+        "TE"
+      ],
+      "ground_truth": "gt"
+    },
+    "require_ground_truth": true
+  },
+  "resolution": {
+    "allow_implicit_key_fallback": false
+  },
+  "label_schema": {
+    "require_contiguous": true,
+    "require_all_classes_in_train": true,
+    "require_all_classes_in_test": true
+  },
+  "layouts": {
+    "hsi": "HWB",
+    "lidar": "HW",
+    "labels": "HW"
+  },
+  "band_selection": {
+    "mode": "all"
+  },
+  "label_values": {
+    "background": 0,
+    "replace": {}
+  },
+  "expected": {
+    "spatial_shape": [
+      349,
+      1905
+    ],
+    "num_bands": 144,
+    "lidar_channels": 1,
+    "num_classes": 15
+  },
+  "patch_size": 11,
+  "normalization": {
+    "hsi": "train_percentile_minmax",
+    "hsi_percentile_low": 1.0,
+    "hsi_percentile_high": 99.0,
+    "statistics_source": "train_label_pixels",
+    "hsi_output_range": [
+      0.0,
+      1.0
+    ],
+    "lidar": "train_zscore"
+  },
+  "class_names": [
+    "Healthy grass",
+    "Stressed grass",
+    "Synthetic grass",
+    "Trees",
+    "Soil",
+    "Water",
+    "Residential",
+    "Commercial",
+    "Road",
+    "Highway",
+    "Railway",
+    "Parking Lot 1",
+    "Parking Lot 2",
+    "Tennis Court",
+    "Running Track"
+  ]
+}

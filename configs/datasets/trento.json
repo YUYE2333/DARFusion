@@ -1,0 +1,73 @@
+{
+  "schema_version": 3,
+  "dataset": "Trento",
+  "loader": "mat_hsi_lidar",
+  "default_root": "data/Trento",
+  "files": {
+    "hsi": "HSI.mat",
+    "lidar": "LiDAR.mat"
+  },
+  "keys": {
+    "hsi": "HSI",
+    "lidar": "LiDAR"
+  },
+  "label_split": {
+    "file": "splits/trento_split.mat",
+    "keys": {
+      "train": ["TRLabel", "TR"],
+      "test": ["TSLabel", "TE"],
+      "ground_truth": "gt"
+    },
+    "require_ground_truth": true
+  },
+  "resolution": {
+    "allow_implicit_key_fallback": false
+  },
+  "label_schema": {
+    "require_contiguous": true,
+    "require_all_classes_in_train": true,
+    "require_all_classes_in_test": true
+  },
+  "layouts": {
+    "hsi": "HWB",
+    "lidar": "HW",
+    "labels": "HW"
+  },
+  "band_selection": {
+    "mode": "all"
+  },
+  "label_values": {
+    "background": 0,
+    "replace": {}
+  },
+  "expected": {
+    "spatial_shape": [
+      166,
+      600
+    ],
+    "num_bands": 63,
+    "lidar_channels": 1,
+    "num_classes": 6
+  },
+  "patch_size": 33,
+  "normalization": {
+    "hsi": "train_percentile_minmax",
+    "hsi_percentile_low": 1.0,
+    "hsi_percentile_high": 99.0,
+    "statistics_source": "train_label_pixels",
+    "hsi_output_range": [
+      0.0,
+      1.0
+    ],
+    "lidar": "train_zscore"
+  },
+  "class_names": [
+    "Apple trees",
+    "Buildings",
+    "Ground",
+    "Woods",
+    "Vineyard",
+    "Roads"
+  ],
+  "protocol_note": "HSI/LiDAR stay in the dataset root; all label maps come from one fixed split MAT."
+}

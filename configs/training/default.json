@@ -1,0 +1,122 @@
+{
+  "runtime": {
+    "device": "cuda",
+    "amp": false,
+    "batch_size": 64,
+    "num_workers": 0,
+    "pin_memory": true
+  },
+  "clean_fusion": {
+    "fusion": "cross_attention",
+    "epochs": 200,
+    "learning_rate": 0.0005,
+    "weight_decay": 0.001,
+    "warmup_epochs": 5,
+    "min_learning_rate": 1e-06,
+    "feature_dim": 96,
+    "heads": 4,
+    "dropout": 0.1,
+    "mixstyle_probability": 0.0,
+    "auxiliary_loss_weight": 0.0,
+    "contrastive_loss_weight": 0.0,
+    "contrastive_temperature": 0.1,
+    "label_smoothing": 0.0,
+    "class_weighting": "none",
+    "grad_clip": 5.0,
+    "spatial_augmentation": true,
+    "pca": {
+      "enabled": true,
+      "components": 20,
+      "fit_source": "configured_training_label_pixels",
+      "corruption_order": "pre_pca_corruption_then_fixed_transform"
+    }
+  },
+  "robust_fusion": {
+    "model": {
+      "feature_dim": 96,
+      "degradation_dim": 32,
+      "hsi_degradation_encoder_variant": "stats_only",
+      "lidar_degradation_encoder_variant": "statistics",
+      "degradation_dropout": 0.1,
+      "num_degradation_tokens": 8,
+      "num_subprototypes": 4,
+      "kmeans_iterations": 20,
+      "cosine_temperature": 0.1,
+      "expert_hidden_dim": 48,
+      "expert_residual_scale": 0.5,
+      "repair_hidden_dim": 64,
+      "repair_dropout": 0.1,
+      "repair_gain_weight": 2.0,
+      "repair_activation_threshold": 0.02,
+      "repair_gate_temperature": 0.03
+    },
+    "training": {
+      "optimizer": {
+        "weight_decay": 0.001,
+        "grad_clip_norm": 5.0
+      },
+      "robust_training": {
+        "epochs": 50,
+        "learning_rate": 0.0008,
+        "backbone_learning_rate": 4e-05,
+        "fusion_learning_rate": 0.00012,
+        "clean_sample_ratio": 0.2,
+        "degradation_loss_weight": 1.0,
+        "severity_loss_weight": 0.5,
+        "token_diversity_margin": 0.85,
+        "token_diversity_weight": 0.02,
+        "feature_loss_weight": 1.0,
+        "semantic_loss_weight": 0.35,
+        "classification_loss_weight": 0.25,
+        "clean_identity_weight": 0.25,
+        "residual_weight": 0.02,
+        "clean_anchor_weight": 0.5,
+        "clean_logit_distillation_weight": 0.2,
+        "partial_unfreeze": {
+          "enabled": true,
+          "hsi_modules": [
+            "down2",
+            "stage3"
+          ],
+          "lidar_modules": [
+            "down2",
+            "stage3"
+          ],
+          "fusion": true,
+          "classifier": true
+        },
+        "prototype_refresh": {
+          "enabled": true,
+          "clean_sample_ratio": 0.2
+        },
+        "selection_every_epochs": 5,
+        "validation_score": {
+          "clean_weight": 0.4,
+          "hsi_known_weight": 0.3,
+          "lidar_known_weight": 0.3
+        },
+        "selection": "official_test_clean_plus_known_composite",
+        "composition": {
+          "enabled": true,
+          "mode": "prototype",
+          "hidden_dim": 64,
+          "channel_groups": 8,
+          "spatial_grid": 3,
+          "train_topk": 0,
+          "mix_weight": 0.05,
+          "route_weight": 0.1,
+          "feature_weight": 1.0,
+          "semantic_weight": 0.35,
+          "classification_weight": 0.25,
+          "teacher_target": "none",
+          "teacher_temperature": 0.5,
+          "oracle_steps": 30,
+          "warmup_fraction": 0.2,
+          "ramp_fraction": 0.2,
+          "detach_clean_gate": true,
+          "router_learning_rate": 0.0008
+        }
+      }
+    }
+  }
+}
